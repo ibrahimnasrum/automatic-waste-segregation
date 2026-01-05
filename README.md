@@ -98,6 +98,7 @@ Every classification is also logged to **Google Sheets** with a timestamp (and c
 
 **Install (recommended):**
 ```bash
+```
 # Create venv (Windows)
 python -m venv venv
 venv\Scripts\activate
@@ -105,4 +106,103 @@ venv\Scripts\activate
 # Install deps
 pip install pyserial opencv-python numpy pillow roboflow gspread google-auth
 
+## How to Run (Step-by-step)
 
+### Step 1 — Upload Arduino Code
+1. Open `arduino/main_arduino_lcd.ino` in **Arduino IDE**
+2. Select the correct **Board** and **Port**
+3. Click **Upload**
+4. (Optional) Open **Serial Monitor** at **9600 baud** for debugging
+
+**Arduino expects serial commands:**
+- `a` = Glass  
+- `b` = Metal  
+- `c` = Plastic  
+- `d` = Paper  
+
+---
+
+### Step 2 — Run the Python GUI
+1. Connect Arduino to your PC via **USB**
+2. Run the GUI:
+
+```bash
+python python/main_AWS.py
+```
+
+### Step 2 - In the GUI:
+
+1. Click Refresh Ports
+
+2. Select the correct COM Port
+
+3. Click Connect
+
+ You should see a message like:
+_Connected to COMx at 9600 baud._
+
+### Using the GUI
+
+**Manual Mode**
+
+ 1. Click Glass / Metal / Plastic / Paper
+
+2. GUI sends the serial command to Arduino
+
+3. Buttons are disabled until Arduino replies i (movement finished)
+
+4. Google Sheet updates with material + timestamp
+
+**Automatic Mode (Camera + AI)**
+
+1. Click Capture and Classify
+
+2. Webcam captures an image
+
+3. Roboflow returns top_class + confidence
+
+4. Python maps class → sends command (a/b/c/d) to Arduino
+
+5. Google Sheet updates with material + confidence + timestamp
+
+
+## Troubleshooting
+
+### No COM port shows
+
+1. Click Refresh Ports
+
+2. Ensure Arduino USB driver is installed
+
+3. Try a different USB cable/port
+
+4. Confirm Arduino appears in Device Manager (Windows)
+
+### LCD not showing
+
+1. Check I2C address (0x27 vs 0x3F)
+
+2. Check SDA/SCL wiring
+
+3. Arduino Mega: SDA=20, SCL=21
+
+### Roboflow classification fails
+
+1. Check internet connection
+
+2. Verify Roboflow API key is correct
+
+3. Confirm the model project/version exists
+
+### Google Sheet update fails
+
+1. Share the Google Sheet with your service account email
+
+2. Verify your credential_api.json file path is correct
+
+3. Ensure Google Sheets API is enabled in Google Cloud
+
+## Credits / Team
+
+Integrated Design Project (IDP) — Automatic Waste Segregation
+()
