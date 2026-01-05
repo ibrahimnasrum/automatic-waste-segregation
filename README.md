@@ -205,4 +205,10 @@ _Connected to COMx at 9600 baud._
 ## Credits / Team
 
 Integrated Design Project (IDP) — Automatic Waste Segregation
-()
+
+**Section: 1 Group 7:**
+
+1) Ibrahim Bin Nasrum ( 2116467 )
+2) Ahmad Zarady Bin Zulkefly (2111837 )
+3) Abdallah Mahamat Abacar Maeyd (2117777)   
+4) Almasri Suhail Jihad ( 2128771 )
