@@ -55,6 +55,54 @@ Every classification is also logged to **Google Sheets** with a timestamp (and c
 
 ---
 
-## Repository Contents (Recommended Structure)
-You can structure the repo like this (clean & professional):
+
+---
+
+## Hardware Required
+- Arduino (your code uses high pin numbers, so **Arduino Mega recommended**)
+- 3× Stepper motors (X, Y, Z axis) + step/dir drivers
+- 2× Servos (lid + door)
+- I2C LCD (your Arduino code uses **16x2**, address `0x27`)
+- Webcam (PC/Laptop camera or USB webcam)
+- Power supply for motors/servos (do not power servos/motors from Arduino 5V directly)
+
+---
+
+## Arduino Pin Mapping (From `main_arduino_lcd.ino`)
+### Stepper Motors (Step/Dir)
+- X axis: `stepX = 2`, `dirX = 5`
+- Y axis: `stepY = 3`, `dirY = 6`
+- Z axis: `stepZ = 4`, `dirZ = 7`
+- Enable pin: `enPin = 8` *(LOW = enable, typical drivers)*
+
+### Servos
+- Main servo (lid): `servoPin = 36`
+- Second servo (door): `secondServoPin = 24`
+
+### LCD
+- `LiquidCrystal_I2C lcd(0x27, 16, 2);`
+
+> If your LCD address is different (e.g. `0x3F`), change it in the Arduino code.
+
+---
+
+## Software Requirements
+### Python Dependencies (from your `main_AWS.py`)
+- `pyserial`
+- `opencv-python`
+- `numpy`
+- `Pillow`
+- `roboflow`
+- `gspread`
+- `google-auth`
+
+**Install (recommended):**
+```bash
+# Create venv (Windows)
+python -m venv venv
+venv\Scripts\activate
+
+# Install deps
+pip install pyserial opencv-python numpy pillow roboflow gspread google-auth
+
 
